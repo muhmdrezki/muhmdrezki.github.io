@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Frozy Food</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="./assets/aos.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+    crossorigin="" />
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+    crossorigin=""></script>
+</head>
+
+<body>
+  <header>
+    <div class="hero">
+      <div class="nav-bar">
+        <a data-aos="zoom-in-right" data-aos-duration="5000" href="/" class="brand">FrozyFood</a>
+        <div data-aos="zoom-in-left" class="nav-menu">
+          <a href="javascript:void(0)" onclick="scrolltoDiv('products')" class="nav-menu__link"> Products </a>
+          <a href="javascript:void(0)" onclick="scrolltoDiv('contactus')" class="nav-menu__link"> Contact Us </a>
+        </div>
+      </div>
+      <div data-aos="fade-up" data-aos-duration="5000" class="hero__text">
+        <span>
+          <h1> Frozy Food </h1>
+          <h2> your online frozen food store </h2>
+
+          <button class="hero__button" onclick="scrolltoDiv('products')">
+            See what we have
+          </button>
+        </span>
+      </div>
+
+    </div>
+  </header>
+
+  <br>
+
+  <main>
+    <div id="products" class="products">
+      <h1>what we sell</h1>
+
+      <div data-aos="zoom-in" data-aos-duration="500" class="products__card">
+        <img class="products__card-image" src="./assets/meat.jpg" alt="Meat" />
+        <div class="products__card-text">
+          <span>
+            <h2 class="title"> Fresh Meat ! </h2>
+            <p class="description"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut dictum neque eu nibh
+              posuere, eget gravida
+              felis molestie. Sed a lorem leo. Donec maximus id nunc sit amet ullamcorper. Proin quis efficitur ligula.
+              Nulla facilisi. Phasellus iaculis ultricies est, ut laoreet velit fermentum sit amet. Mauris iaculis lacus
+              quis urna laoreet, a laoreet velit luctus. Sed posuere justo sed leo pellentesque consequat. Duis in
+              tempor
+              massa. </p>
+            <button class="order"> BUY NOW </button>
+          </span>
+        </div>
+      </div>
+
+      <div data-aos="zoom-in" data-aos-duration="500" class="products__card">
+        <div class="products__card-text">
+          <span>
+            <h2 class="title"> Fresh Fruit ! </h2>
+            <p class="description"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut dictum neque eu nibh
+              posuere, eget gravida
+              felis molestie. Sed a lorem leo. Donec maximus id nunc sit amet ullamcorper. Proin quis efficitur ligula.
+              Nulla facilisi. Phasellus iaculis ultricies est, ut laoreet velit fermentum sit amet. Mauris iaculis lacus
+              quis urna laoreet, a laoreet velit luctus. Sed posuere justo sed leo pellentesque consequat. Duis in
+              tempor
+              massa. </p>
+            <button class="order"> BUY NOW </button>
+          </span>
+        </div>
+        <img class="products__card-image" src="./assets/fruit.jpg" alt="Meat" />
+      </div>
+
+      <div data-aos="zoom-in" data-aos-duration="500" class="products__card">
+        <img class="products__card-image" src="./assets/veggy.jpg" alt="Meat" />
+        <div class="products__card-text">
+          <span>
+            <h2 class="title"> Fresh Vegetables ! </h2>
+            <p class="description"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut dictum neque eu nibh
+              posuere, eget gravida
+              felis molestie. Sed a lorem leo. Donec maximus id nunc sit amet ullamcorper. Proin quis efficitur ligula.
+              Nulla facilisi. Phasellus iaculis ultricies est, ut laoreet velit fermentum sit amet. Mauris iaculis lacus
+              quis urna laoreet, a laoreet velit luctus. Sed posuere justo sed leo pellentesque consequat. Duis in
+              tempor
+              massa. </p>
+            <button class="order"> BUY NOW </button>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div data-aos="zoom-in" id="contactus" class="contactus">
+      <div id="mapid" class="contactus__map"></div>
+      <div class="contactus__text">
+        <h2 class="title"> Find Us </h2>
+        <p class="description">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut dictum neque eu nibh posuere, eget gravida felis
+          molestie. Sed a lorem leo. Donec maximus id nunc sit amet ullamcorper. Proin quis efficitur ligula. Nulla
+          facilisi. Phasellus iaculis ultricies est, ut laoreet velit fermentum sit amet. Mauris iaculis lacus quis urna
+          laoreet, a laoreet velit luctus. Sed posuere justo sed leo pellentesque consequat. Duis in tempor massa.
+        </p>
+
+        <br>
+
+        <div class="address">
+          <h3 class="address__country">Indonesia</h3>
+          <h5>4486 Ralph Drive</h5>
+          <h5>Independence</h5>
+          <h5>Ohio</h5>
+          <h5>440-320-5360</h5>
+        </div>
+
+        <br>
+
+        <div class="socialmedia">
+          <h3 class="socialmedia__title">Catch Us on Social Media</h3>
+          <img src="./assets/fb.png" alt="fb">
+          <img src="./assets/ig.png" alt="ig">
+        </div>
+      </div>
+    </div>
+
+    <br>
+    <br>
+  </main>
+
+  <footer>
+    2021, Designed by Rezki
+  </footer>
+
+  <script src="main.js"></script>
+  <script src="./assets/aos.js"></script>
+  <script src="./assets/jquery-3.6.0.min.js"></script>
+
+  <script>
+    AOS.init({
+      debounceDelay: 10,
+      throttleDelay: 300,
+    });
+
+    var mymap = L.map('mapid').setView([51.505, -0.09], 13);
+
+    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(mymap);
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,12 @@
+{
+  "name": "techsolution.ui.landingpage.boilerplate",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node-sass --watch --output-style -o ./ ./"
+  },
+  "author": "Muhamad Rezki",
+  "email": "rezkimuhmd.work@gmail.com",
+  "license": "ISC"
+}
