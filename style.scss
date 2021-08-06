@@ -13,7 +13,7 @@ $blue: #007bc1;
 }
 
 @mixin small {
-  @media only screen and (max-width:360px) and (max-width: 480px) {
+  @media only screen and (max-width: 480px) {
     @content;
   }
 }
@@ -92,7 +92,7 @@ header {
       align-items: center;
       padding: 0 5em;
 
-      @include small {
+      @include medium {
         display: block;
         text-align: right;
         padding: 2em 2em;
@@ -101,7 +101,7 @@ header {
       .nav-menu {
         font-size: 1.3em;
 
-        @include small {
+        @include medium {
           display: none;
         }
 
@@ -124,7 +124,7 @@ header {
       .menu-mobile {
         display: none;
 
-        @include small {
+        @include medium {
           display: block;
         }
 
@@ -132,7 +132,7 @@ header {
           text-decoration: none !important;
 
           &::after {
-            @include small {
+            @include medium {
               font-family: "Font Awesome 5 Free" !important;
               font-size: 25px !important;
               content: "\f0c9";
@@ -149,7 +149,7 @@ header {
         text-decoration: none;
         color: white;
 
-        @include small {
+        @include medium {
           display: none;
         }
       }
