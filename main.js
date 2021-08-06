@@ -1,6 +1,8 @@
-const scrolltoDiv = (div) => {
-  // let element = document.getElementById(div);
-  // element.scrollIntoView({ behavior: "smooth" });
+const scrolltoDiv = (div, isSidebar) => {
+  if (isSidebar) {
+    $(".container").removeClass("container__open");
+    $(".sidebar-menu").removeClass("sidebar-menu__open");
+  }
 
   $("html, body").animate(
     {
@@ -8,4 +10,14 @@ const scrolltoDiv = (div) => {
     },
     1000
   );
+};
+
+const openSidebar = () => {
+  $(".container").addClass("container__open");
+  $(".sidebar-menu").addClass("sidebar-menu__open");
+};
+
+const closeSidebar = () => {
+  $(".container").removeClass("container__open");
+  $(".sidebar-menu").removeClass("sidebar-menu__open");
 };

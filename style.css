@@ -6,7 +6,7 @@
 
 html {
   overflow: auto;
-  font-family: 'Quicksand', sans-serif;
+  font-family: "Quicksand", sans-serif;
   font-size: 0.85rem; }
 
 html body {
@@ -14,13 +14,21 @@ html body {
   position: relative; }
 
 html button {
-  font-family: 'Quicksand', sans-serif; }
+  font-family: "Quicksand", sans-serif; }
 
 html h1 {
   font-size: 3em; }
 
+@media only screen and (max-width: 360px) and (max-width: 480px) {
+  html h1 {
+    font-size: 2em; } }
+
 html h2 {
   font-size: 2em; }
+
+@media only screen and (max-width: 360px) and (max-width: 480px) {
+  html h2 {
+    font-size: 1.5em; } }
 
 html h3 {
   font-size: 1.5em; }
@@ -43,8 +51,18 @@ header .hero .nav-bar {
   align-items: center;
   padding: 0 5em; }
 
+@media only screen and (max-width: 360px) and (max-width: 480px) {
+  header .hero .nav-bar {
+    display: block;
+    text-align: right;
+    padding: 2em 2em; } }
+
 header .hero .nav-bar .nav-menu {
   font-size: 1.3em; }
+
+@media only screen and (max-width: 360px) and (max-width: 480px) {
+  header .hero .nav-bar .nav-menu {
+    display: none; } }
 
 header .hero .nav-bar .nav-menu a {
   padding: 10px 0.8em;
@@ -60,11 +78,33 @@ header .hero .nav-bar .nav-menu a:hover {
   color: black;
   border-radius: 80px; }
 
+header .hero .nav-bar .menu-mobile {
+  display: none; }
+
+@media only screen and (max-width: 360px) and (max-width: 480px) {
+  header .hero .nav-bar .menu-mobile {
+    display: block; } }
+
+header .hero .nav-bar .menu-mobile__toggle {
+  text-decoration: none !important; }
+
+@media only screen and (max-width: 360px) and (max-width: 480px) {
+  header .hero .nav-bar .menu-mobile__toggle::after {
+    font-family: "Font Awesome 5 Free" !important;
+    font-size: 25px !important;
+    content: "\f0c9";
+    font-weight: 900;
+    color: white; } }
+
 header .hero .nav-bar .brand {
   font-size: 30px;
   padding: 0 1em;
   text-decoration: none;
   color: white; }
+
+@media only screen and (max-width: 360px) and (max-width: 480px) {
+  header .hero .nav-bar .brand {
+    display: none; } }
 
 header .hero__text {
   height: 100%;
@@ -75,6 +115,11 @@ header .hero__text {
   text-align: center;
   line-height: 4em;
   top: -2em; }
+
+@media only screen and (max-width: 360px) and (max-width: 480px) {
+  header .hero__text {
+    line-height: 3em;
+    margin-top: -4em !important; } }
 
 header .hero__text h2 {
   font-weight: 200; }
@@ -95,8 +140,63 @@ header .hero__button:hover {
   border: 1px solid white;
   transition: 0.5s; }
 
+aside .container {
+  height: 100%;
+  position: absolute;
+  z-index: 1;
+  width: 0;
+  top: 0;
+  right: 0;
+  transition: 0.2s;
+  background-color: rgba(0, 0, 0, 0.5); }
+
+aside .container .sidebar-menu {
+  height: 100%;
+  position: absolute;
+  z-index: 2;
+  width: 0;
+  top: 0;
+  right: 0;
+  background-color: #f5f5f5;
+  overflow-x: hidden; }
+
+aside .container .sidebar-menu__close::after {
+  float: right;
+  text-align: right;
+  font-family: "Font Awesome 5 Free" !important;
+  font-size: 25px !important;
+  content: "\f057";
+  font-weight: 900;
+  color: black;
+  margin: 0.7em; }
+
+aside .container .sidebar-menu__content {
+  padding: 2em;
+  border-bottom: 1px solid #cccccc; }
+
+aside .container .sidebar-menu__content h1,
+aside .container .sidebar-menu__content h2 {
+  font-weight: 400 !important; }
+
+aside .container .sidebar-menu__navigation a {
+  text-decoration: none;
+  font-size: 1em;
+  color: black; }
+
+aside .container .sidebar-menu__navigation .side-nav {
+  padding: 1.5em;
+  display: block;
+  border-bottom: 1px solid #cccccc; }
+
+aside .container .sidebar-menu__open {
+  width: 70%; }
+
+aside .container__open {
+  width: 100%; }
+
 main {
   max-width: 1280px;
+  padding: 0 2em;
   margin: auto; }
 
 main .products {
@@ -111,14 +211,25 @@ main .products__card {
   justify-content: space-around;
   margin-bottom: 2em; }
 
+@media only screen and (min-width: 481px) and (max-width: 960px) {
+  main .products__card {
+    display: block;
+    text-align: center; } }
+
+@media only screen and (max-width: 360px) and (max-width: 480px) {
+  main .products__card {
+    display: block;
+    text-align: center; } }
+
 main .products__card-text {
   display: flex;
   justify-content: center;
   align-items: center;
-  text-align: right; }
+  text-align: justify; }
 
-main .products__card-text:nth-child(even) {
-  text-align: left; }
+@media only screen and (min-width: 481px) and (max-width: 960px) {
+  main .products__card-text {
+    text-align: center; } }
 
 main .products__card-text .title {
   font-size: 2.3em;
@@ -129,6 +240,15 @@ main .products__card-text .description {
   font-size: 1.3em;
   line-height: 1.5em;
   margin-bottom: 1em; }
+
+@media only screen and (min-width: 481px) and (max-width: 960px) {
+  main .products__card-text .description {
+    font-size: 1.3em;
+    max-width: 800px; } }
+
+@media only screen and (max-width: 360px) and (max-width: 480px) {
+  main .products__card-text .description {
+    font-size: 1.2em; } }
 
 main .products__card-text .order {
   border-radius: 32px;
@@ -152,11 +272,29 @@ main .products__card-image {
   box-shadow: 0.5em 0.5em gainsboro;
   width: 30%; }
 
+@media only screen and (min-width: 481px) and (max-width: 960px) {
+  main .products__card-image {
+    margin: 0 0 1em 0;
+    width: 40%; } }
+
+@media only screen and (max-width: 360px) and (max-width: 480px) {
+  main .products__card-image {
+    margin: 0 0 1em 0;
+    width: 100%; } }
+
 main .products__card-image:nth-child(odd) {
   margin-right: 2em; }
 
+@media only screen and (min-width: 481px) and (max-width: 960px) {
+  main .products__card-image:nth-child(odd) {
+    margin: 0 0 1em 0; } }
+
 main .products__card-image:nth-child(even) {
   margin-left: 2em; }
+
+@media only screen and (min-width: 481px) and (max-width: 960px) {
+  main .products__card-image:nth-child(even) {
+    margin: 0 0 1em 0; } }
 
 main .contactus {
   display: flex;
@@ -167,6 +305,22 @@ main .contactus {
   color: white;
   border-radius: 32px;
   box-shadow: 5px 5px #cfcfcf; }
+
+@media only screen and (min-width: 481px) and (max-width: 960px) {
+  main .contactus {
+    display: block;
+    height: 1100px;
+    margin: 0 0 1em 0; } }
+
+@media only screen and (max-width: 720px) {
+  main .contactus {
+    display: block;
+    height: 1100px;
+    margin: 0 0 1em 0; } }
+
+@media only screen and (max-width: 720px) and (max-width: 360px) and (max-width: 480px) {
+  main .contactus {
+    height: 1300px; } }
 
 main .contactus .title {
   font-size: 2.3em;
@@ -193,6 +347,22 @@ main .contactus__map {
   height: 100%;
   width: 50%;
   margin-right: 2em; }
+
+@media only screen and (min-width: 481px) and (max-width: 960px) {
+  main .contactus__map {
+    margin-bottom: 2em;
+    height: 50%;
+    width: 100%; } }
+
+@media only screen and (max-width: 720px) {
+  main .contactus__map {
+    margin-bottom: 2em;
+    height: 50%;
+    width: 100%; } }
+
+@media only screen and (max-width: 360px) and (max-width: 480px) {
+  main .contactus__map {
+    height: 45%; } }
 
 main .contactus__text {
   max-width: 500px; }

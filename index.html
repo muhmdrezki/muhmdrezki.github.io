@@ -25,11 +25,14 @@
           <a href="javascript:void(0)" onclick="scrolltoDiv('products')" class="nav-menu__link"> Products </a>
           <a href="javascript:void(0)" onclick="scrolltoDiv('contactus')" class="nav-menu__link"> Contact Us </a>
         </div>
+        <div class="menu-mobile">
+          <a href="javascript:void(0)" class="menu-mobile__toggle" onclick="openSidebar()"></a>
+        </div>
       </div>
       <div data-aos="fade-up" data-aos-duration="5000" class="hero__text">
         <span>
           <h1> Frozy Food </h1>
-          <h2> your online frozen food store </h2>
+          <h2> your online supermarket </h2>
 
           <button class="hero__button" onclick="scrolltoDiv('products')">
             See what we have
@@ -39,6 +42,22 @@
 
     </div>
   </header>
+
+  <aside>
+    <div class="container">
+      <div id="sidebar-menu" class="sidebar-menu">
+        <span class="sidebar-menu__close" onclick="closeSidebar()"></span>
+        <div class="sidebar-menu__content">
+          <h2> Frozy Food </h2>
+          <h2> Menu Navigation </h2>
+        </div>
+        <div class="sidebar-menu__navigation">
+          <a href="javascript:void(0)" class="side-nav" onclick="scrolltoDiv('products', true)"> Products </a>
+          <a href="javascript:void(0)" class="side-nav" onclick="scrolltoDiv('contactus', true)"> Contact Us </a>
+        </div>
+      </div>
+    </div>
+  </aside>
 
   <br>
 
@@ -64,6 +83,7 @@
       </div>
 
       <div data-aos="zoom-in" data-aos-duration="500" class="products__card">
+        <img class="products__card-image" src="./assets/fruit.jpg" alt="Meat" />
         <div class="products__card-text">
           <span>
             <h2 class="title"> Fresh Fruit ! </h2>
@@ -77,7 +97,7 @@
             <button class="order"> BUY NOW </button>
           </span>
         </div>
-        <img class="products__card-image" src="./assets/fruit.jpg" alt="Meat" />
+
       </div>
 
       <div data-aos="zoom-in" data-aos-duration="500" class="products__card">
@@ -101,30 +121,37 @@
     <div data-aos="zoom-in" id="contactus" class="contactus">
       <div id="mapid" class="contactus__map"></div>
       <div class="contactus__text">
-        <h2 class="title"> Find Us </h2>
-        <p class="description">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut dictum neque eu nibh posuere, eget gravida felis
-          molestie. Sed a lorem leo. Donec maximus id nunc sit amet ullamcorper. Proin quis efficitur ligula. Nulla
-          facilisi. Phasellus iaculis ultricies est, ut laoreet velit fermentum sit amet. Mauris iaculis lacus quis urna
-          laoreet, a laoreet velit luctus. Sed posuere justo sed leo pellentesque consequat. Duis in tempor massa.
-        </p>
-
-        <br>
-
-        <div class="address">
-          <h3 class="address__country">Indonesia</h3>
-          <h5>4486 Ralph Drive</h5>
-          <h5>Independence</h5>
-          <h5>Ohio</h5>
-          <h5>440-320-5360</h5>
+        <div>
+          <h2 class="title"> Find Us </h2>
+          <p class="description">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut dictum neque eu nibh posuere, eget gravida felis
+            molestie. Sed a lorem leo. Donec maximus id nunc sit amet ullamcorper. Proin quis efficitur ligula. Nulla
+            facilisi. Phasellus iaculis ultricies est, ut laoreet velit fermentum sit amet. Mauris iaculis lacus quis
+            urna
+            laoreet, a laoreet velit luctus. Sed posuere justo sed leo pellentesque consequat. Duis in tempor massa.
+          </p>
         </div>
 
         <br>
 
-        <div class="socialmedia">
-          <h3 class="socialmedia__title">Catch Us on Social Media</h3>
-          <img src="./assets/fb.png" alt="fb">
-          <img src="./assets/ig.png" alt="ig">
+        <div>
+          <div class="address">
+            <h2 class="address__country">Indonesia</h2>
+            <h5>4486 Ralph Drive</h5>
+            <h5>Independence</h5>
+            <h5>Ohio</h5>
+            <h5>440-320-5360</h5>
+          </div>
+        </div>
+
+        <br>
+
+        <div>
+          <div class="socialmedia">
+            <h2 class="socialmedia__title">Catch Us on Social Media</h2>
+            <img src="./assets/fb.png" alt="fb">
+            <img src="./assets/ig.png" alt="ig">
+          </div>
         </div>
       </div>
     </div>

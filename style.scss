@@ -13,7 +13,7 @@ $blue: #007bc1;
 }
 
 @mixin small {
-  @media only screen and (max-width: 480px) {
+  @media only screen and (max-width:360px) and (max-width: 480px) {
     @content;
   }
 }
@@ -39,7 +39,7 @@ $blue: #007bc1;
 // Main Style
 html {
   overflow: auto;
-  font-family: 'Quicksand', sans-serif;
+  font-family: "Quicksand", sans-serif;
   font-size: 0.85rem;
 
   body {
@@ -48,15 +48,23 @@ html {
   }
 
   button {
-    font-family: 'Quicksand', sans-serif;
+    font-family: "Quicksand", sans-serif;
   }
 
   h1 {
     font-size: 3em;
+
+    @include small {
+      font-size: 2em;
+    }
   }
 
   h2 {
     font-size: 2em;
+
+    @include small {
+      font-size: 1.5em;
+    }
   }
 
   h3 {
@@ -68,11 +76,10 @@ html {
 header {
   height: 100vh;
 
-  
-
   .hero {
     height: 100vh;
-    background-image: linear-gradient(rgba(black, 0.7), rgba(black, 0.7)), url("./assets/header-bg.jpg");
+    background-image: linear-gradient(rgba(black, 0.7), rgba(black, 0.7)),
+      url("./assets/header-bg.jpg");
     background-repeat: no-repeat;
     background-size: cover;
 
@@ -83,18 +90,28 @@ header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 0 5em;   
+      padding: 0 5em;
+
+      @include small {
+        display: block;
+        text-align: right;
+        padding: 2em 2em;
+      }
 
       .nav-menu {
         font-size: 1.3em;
-     
+
+        @include small {
+          display: none;
+        }
+
         a {
           padding: 10px 0.8em;
           color: white;
           text-decoration: none;
           width: 25%; /* Four links of equal widths */
           text-align: center;
-  
+
           &:hover {
             transition: 0.5s;
             background-color: white;
@@ -103,12 +120,38 @@ header {
           }
         }
       }
-  
+
+      .menu-mobile {
+        display: none;
+
+        @include small {
+          display: block;
+        }
+
+        &__toggle {
+          text-decoration: none !important;
+
+          &::after {
+            @include small {
+              font-family: "Font Awesome 5 Free" !important;
+              font-size: 25px !important;
+              content: "\f0c9";
+              font-weight: 900;
+              color: white;
+            }
+          }
+        }
+      }
+
       .brand {
         font-size: 30px;
         padding: 0 1em;
         text-decoration: none;
         color: white;
+
+        @include small {
+          display: none;
+        }
       }
     }
 
@@ -121,6 +164,11 @@ header {
       text-align: center;
       line-height: 4em;
       top: -2em;
+
+      @include small {
+        line-height: 3em;
+        margin-top: -4em !important;
+      }
 
       h2 {
         font-weight: 200;
@@ -137,7 +185,7 @@ header {
       font-size: 1.3em;
       cursor: pointer;
 
-      &:hover {  
+      &:hover {
         background-color: white;
         color: black;
         border: 1px solid white;
@@ -147,8 +195,78 @@ header {
   }
 }
 
+aside {
+  .container {
+    height: 100%;
+    position: absolute;
+    z-index: 1;
+    width: 0;
+    top: 0;
+    right: 0;
+    transition: 0.2s;
+    background-color: rgba(black, 0.5);
+
+    .sidebar-menu {
+      height: 100%;
+      position: absolute;
+      z-index: 2;
+      width: 0;
+      top: 0;
+      right: 0;
+      background-color: $smoke-grey;
+      overflow-x: hidden;
+
+      &__close {
+        &::after {
+          float: right;
+          text-align: right;
+          font-family: "Font Awesome 5 Free" !important;
+          font-size: 25px !important;
+          content: "\f057";
+          font-weight: 900;
+          color: black;
+          margin: 0.7em;
+        }
+      }
+
+      &__content {
+        padding: 2em;
+        border-bottom: 1px solid lighten(black, 80%);
+
+        h1,
+        h2 {
+          font-weight: 400 !important;
+        }
+      }
+
+      &__navigation {
+        a {
+          text-decoration: none;
+          font-size: 1em;
+          color: black;
+        }
+
+        .side-nav {
+          padding: 1.5em;
+          display: block;
+          border-bottom: 1px solid lighten(black, 80%);
+        }
+      }
+
+      &__open {
+        width: 70%;
+      }
+    }
+
+    &__open {
+      width: 100%;
+    }
+  }
+}
+
 main {
   max-width: 1280px;
+  padding: 0 2em;
   margin: auto;
 
   .products {
@@ -164,14 +282,24 @@ main {
       justify-content: space-around;
       margin-bottom: 2em;
 
+      @include mediumInBetween {
+        display: block;
+        text-align: center;
+      }
+
+      @include small {
+        display: block;
+        text-align: center;
+      }
+
       &-text {
         display: flex;
         justify-content: center;
         align-items: center;
-        text-align: right;
-  
-        &:nth-child(even) {
-          text-align: left;
+        text-align: justify;
+
+        @include mediumInBetween {
+          text-align: center;
         }
 
         .title {
@@ -179,11 +307,20 @@ main {
           font-weight: 400;
           margin-bottom: 0.3em;
         }
-  
+
         .description {
           font-size: 1.3em;
           line-height: 1.5em;
           margin-bottom: 1em;
+
+          @include mediumInBetween {
+            font-size: 1.3em;
+            max-width: 800px;
+          }
+
+          @include small {
+            font-size: 1.2em;
+          }
         }
 
         .order {
@@ -211,15 +348,33 @@ main {
         border-radius: 16px;
         box-shadow: 0.5em 0.5em darken($smoke-grey, 10%);
         width: 30%;
-        
+
+        @include mediumInBetween {
+          margin: 0 0 1em 0;
+          width: 40%;
+        }
+
+        @include small {
+          margin: 0 0 1em 0;
+          width: 100%;
+        }
+
         &:nth-child(odd) {
           margin-right: 2em;
+
+          @include mediumInBetween {
+            margin: 0 0 1em 0;
+          }
         }
-  
+
         &:nth-child(even) {
           margin-left: 2em;
+
+          @include mediumInBetween {
+            margin: 0 0 1em 0;
+          }
         }
-      }      
+      }
     }
   }
 
@@ -232,6 +387,22 @@ main {
     color: white;
     border-radius: 32px;
     box-shadow: 5px 5px darken($smoke-grey, 15%);
+
+    @include mediumInBetween {
+      display: block;
+      height: 1100px;
+      margin: 0 0 1em 0;
+    }
+
+    @include medium {
+      display: block;
+      height: 1100px;
+      margin: 0 0 1em 0;
+
+      @include small {
+        height: 1300px;
+      }
+    }
 
     .title {
       font-size: 2.3em;
@@ -258,10 +429,26 @@ main {
       text-align: justify;
     }
 
-    &__map { 
+    &__map {
       height: 100%;
       width: 50%;
       margin-right: 2em;
+
+      @include mediumInBetween {
+        margin-bottom: 2em;
+        height: 50%;
+        width: 100%;
+      }
+
+      @include medium {
+        margin-bottom: 2em;
+        height: 50%;
+        width: 100%;
+      }
+
+      @include small {
+        height: 45%;
+      }
     }
 
     &__text {
