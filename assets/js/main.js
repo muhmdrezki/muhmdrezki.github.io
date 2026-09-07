@@ -3,108 +3,180 @@
 
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  document.addEventListener('DOMContentLoaded', () => {
-    initHeroEntrance(reduced);
-    initScrollReveal(reduced);
-  });
-
-  function initHeroEntrance(reduced) {
-    const name1 = document.getElementById('mz-name-1');
-    const name2 = document.getElementById('mz-name-2');
-    const divider = document.getElementById('mz-divider');
-    const tagline = document.getElementById('mz-tagline');
-    const scroll = document.getElementById('mz-scroll');
-    const scrollArrow = document.getElementById('mz-scroll-arrow');
-    const flash = document.getElementById('mz-flash');
-    const grid = document.getElementById('mz-grid');
-    const heroContent = document.getElementById('mz-hero-content');
-    const strike = document.getElementById('mz-strike');
-
-    if (reduced) {
-      [name1, name2].forEach(el => { if (el) el.style.transform = 'translateY(0)'; });
-      if (divider) divider.style.transform = 'scaleX(1)';
-      if (tagline) { tagline.style.opacity = '1'; tagline.style.transform = 'none'; }
-      if (scroll) scroll.style.opacity = '1';
-      return;
-    }
-
-    // Stage lights — accent color burst
-    if (flash) {
-      flash.style.animation = 'flashPulse 0.88s cubic-bezier(0.16,1,0.3,1) forwards';
-      setTimeout(() => { flash.style.display = 'none'; }, 940);
-    }
-
-    // MUHAMAD slams up
-    setTimeout(() => {
-      if (name1) name1.style.animation = 'slideUpName 0.72s cubic-bezier(0.16,1,0.3,1) forwards';
-    }, 210);
-
-    // REZKI slams up
-    setTimeout(() => {
-      if (name2) name2.style.animation = 'slideUpName 0.72s cubic-bezier(0.16,1,0.3,1) forwards';
-    }, 390);
-
-    // Divider draws
-    setTimeout(() => {
-      if (divider) divider.style.animation = 'dividerExpand 0.65s cubic-bezier(0.16,1,0.3,1) forwards';
-    }, 790);
-
-    // Tagline fades up
-    setTimeout(() => {
-      if (tagline) tagline.style.animation = 'fadeUpIn 0.55s ease forwards';
-    }, 990);
-
-    // Signature moment: REZKI is struck like a stamp — spark, shockwave, recoil
-    setTimeout(() => {
-      if (name2) name2.style.animation = 'rezkiImpact 0.5s cubic-bezier(0.2,0.85,0.25,1) forwards';
-      if (heroContent) {
-        heroContent.style.animation = 'heroRecoil 0.42s ease-out';
-        heroContent.addEventListener('animationend', () => { heroContent.style.animation = 'none'; }, { once: true });
-      }
-      if (grid) {
-        grid.style.animation = 'gridShock 0.7s ease-out';
-        grid.addEventListener('animationend', () => {
-          grid.style.animation = 'gridBreath 7s ease-in-out infinite';
-        }, { once: true });
-      }
-      if (strike) strike.style.animation = 'strikeFlash 0.34s ease-out forwards';
-    }, 1090);
-
-    // Scroll hint
-    setTimeout(() => {
-      if (scroll) {
-        scroll.style.animation = 'fadeUpIn 0.5s ease forwards';
-        setTimeout(() => {
-          if (scrollArrow) scrollArrow.style.animation = 'arrowBounce 2.2s ease-in-out infinite';
-        }, 560);
-      }
-    }, 1360);
+  /* Entrance animations are an enhancement: the hidden state lives behind the
+     .js class, so if this script never runs the page still renders in full. */
+  if (!reduced) {
+    document.documentElement.classList.add('js');
+    heroEntrance();
+    scrollReveal();
   }
 
-  function initScrollReveal(reduced) {
-    const elements = document.querySelectorAll('[data-reveal]');
+  lightbox();
 
-    if (reduced || !('IntersectionObserver' in window)) {
-      elements.forEach(el => el.classList.add('is-revealed'));
+  /* ── Hero ──────────────────────────────────────────────────────────── */
+
+  function heroEntrance() {
+    const items = Array.from(document.querySelectorAll('[data-hero-in]'))
+      .sort((a, b) => Number(a.dataset.heroIn) - Number(b.dataset.heroIn));
+
+    items.forEach((el, i) => {
+      setTimeout(() => el.classList.add('is-in'), 80 + i * 120);
+    });
+  }
+
+  /* ── Scroll reveal ─────────────────────────────────────────────────── */
+
+  function scrollReveal() {
+    const items = document.querySelectorAll('[data-reveal]');
+    if (!items.length) return;
+
+    if (!('IntersectionObserver' in window)) {
+      items.forEach(el => el.classList.add('is-in'));
       return;
     }
 
-    elements.forEach(el => el.classList.add('reveal-pending'));
-
-    const observer = new IntersectionObserver(entries => {
+    const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const el = entry.target;
-          const delay = parseInt(el.dataset.delay || '0', 10);
-          setTimeout(() => {
-            el.classList.remove('reveal-pending');
-            el.classList.add('is-revealed');
-          }, delay);
+        if (!entry.isIntersecting) return;
+        const el = entry.target;
+        observer.unobserve(el);
+        setTimeout(() => el.classList.add('is-in'), Number(el.dataset.delay) || 0);
+      });
+    }, { rootMargin: '0px 0px -6% 0px' });
+
+    items.forEach(el => observer.observe(el));
+
+    /* The bottom rootMargin means anything sitting in the last few percent of
+       the page — the colophon — never crosses the trigger line, because the
+       document cannot scroll any further. Once we are at the end of the page,
+       show whatever is left. */
+    const revealRest = () => {
+      let remaining = 0;
+      items.forEach(el => {
+        if (el.classList.contains('is-in')) return;
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
           observer.unobserve(el);
+          setTimeout(() => el.classList.add('is-in'), Number(el.dataset.delay) || 0);
+        } else {
+          remaining++;
         }
       });
-    }, { threshold: 0.12, rootMargin: '0px 0px -50px 0px' });
+      if (!remaining) window.removeEventListener('scroll', onScroll);
+    };
 
-    elements.forEach(el => observer.observe(el));
+    const onScroll = () => {
+      const atEnd = window.scrollY + window.innerHeight >=
+        document.documentElement.scrollHeight - 2;
+      if (atEnd) revealRest();
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+    onScroll();
+  }
+
+  /* ── Screenshot lightbox ───────────────────────────────────────────── */
+
+  function lightbox() {
+    const sets = {
+      aturhr: [
+        ['assets/img/aturhr-dashboard.jpg', 'AturHR dashboard'],
+        ['assets/img/aturhr-web-attendance.jpg', 'AturHR attendance overview'],
+        ['assets/img/aturhr-web-employees.jpg', 'AturHR employee directory'],
+        ['assets/img/aturhr-web-payslip.jpg', 'AturHR payslip'],
+        ['assets/img/aturhr-app-attendance.jpg', 'AturHR mobile attendance'],
+        ['assets/img/aturhr-app-approval.jpg', 'AturHR mobile approvals'],
+        ['assets/img/aturhr-app-team.jpg', 'AturHR mobile team view']
+      ],
+      hourit: [
+        ['assets/img/hourit-01.jpg', 'hourit landing page'],
+        ['assets/img/hourit-02.jpg', 'hourit screen'],
+        ['assets/img/hourit-03.jpg', 'hourit screen'],
+        ['assets/img/hourit-04.jpg', 'hourit screen'],
+        ['assets/img/hourit-05.jpg', 'hourit screen'],
+        ['assets/img/hourit-06.jpg', 'hourit screen']
+      ]
+    };
+
+    const box = document.getElementById('lightbox');
+    const img = document.getElementById('lightbox-img');
+    const dots = document.getElementById('lightbox-dots');
+    if (!box || !img || !dots) return;
+
+    const buttons = Array.from(box.querySelectorAll('button'));
+    let shots = [];
+    let index = 0;
+    let opener = null;
+
+    document.querySelectorAll('[data-shots]').forEach(trigger => {
+      trigger.addEventListener('click', () => {
+        const set = sets[trigger.dataset.shots];
+        if (!set || !set.length) return;
+        opener = trigger;
+        shots = set;
+        index = 0;
+        set.forEach(([src]) => { new Image().src = src; });
+        open();
+      });
+    });
+
+    function open() {
+      box.classList.add('is-open');
+      document.body.classList.add('is-locked');
+      document.addEventListener('keydown', onKey);
+      render(true);
+      buttons[buttons.length - 1].focus();
+    }
+
+    function close() {
+      box.classList.remove('is-open');
+      document.body.classList.remove('is-locked');
+      document.removeEventListener('keydown', onKey);
+      if (opener) opener.focus();
+    }
+
+    function step(delta) {
+      index = (index + delta + shots.length) % shots.length;
+      render();
+    }
+
+    function render(immediate) {
+      const [src, alt] = shots[index];
+
+      if (immediate || reduced) {
+        img.src = src;
+        img.alt = alt;
+      } else if (img.getAttribute('src') !== src) {
+        img.style.opacity = '0';
+        img.style.transform = 'scale(0.985)';
+        setTimeout(() => {
+          img.src = src;
+          img.alt = alt;
+          const show = () => { img.style.opacity = '1'; img.style.transform = 'scale(1)'; };
+          img.complete ? show() : img.addEventListener('load', show, { once: true });
+        }, 120);
+      }
+
+      dots.innerHTML = shots.map((_, i) => `<i class="${i === index ? 'is-active' : ''}"></i>`).join('');
+    }
+
+    function onKey(e) {
+      if (e.key === 'Escape') { close(); return; }
+      if (e.key === 'ArrowRight') { step(1); return; }
+      if (e.key === 'ArrowLeft') { step(-1); return; }
+
+      // Keep focus inside the dialog while it is open.
+      if (e.key === 'Tab') {
+        const first = buttons[0];
+        const last = buttons[buttons.length - 1];
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+      }
+    }
+
+    box.querySelectorAll('[data-lb-close]').forEach(el => el.addEventListener('click', close));
+    box.querySelector('[data-lb-prev]').addEventListener('click', () => step(-1));
+    box.querySelector('[data-lb-next]').addEventListener('click', () => step(1));
   }
 })();
