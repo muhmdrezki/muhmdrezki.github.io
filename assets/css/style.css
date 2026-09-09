@@ -589,6 +589,9 @@ section[id] { scroll-margin-top: 88px; }
   margin-top: 12px;
 }
 .exp-card--left .exp-links { justify-content: flex-end; }
+/* A card can interleave per-project blocks, so give prose after a link
+   group room to breathe. */
+.exp-links + .exp-detail { margin-top: 14px; }
 
 /* Project screenshot inside a timeline card: same treatment as the product
    shots, but tighter since the card is narrow. */
