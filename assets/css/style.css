@@ -23,6 +23,12 @@
   --pad-x: clamp(20px, 5vw, 72px);
   --pad-y: clamp(88px, 12vh, 168px);
   --rail-gap: clamp(20px, 3vw, 44px);
+  /* Timeline card padding, shared so the rail dot and connector stub can be
+     aligned to the date line at every width. */
+  --exp-pad-y: clamp(14px, 1.5vw, 19px);
+  /* One step between blocks inside a card (screenshot, links, trailing
+     stack line); prose siblings sit tighter, at 9px. */
+  --exp-block-gap: 14px;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -502,13 +508,15 @@ section[id] { scroll-margin-top: 88px; }
   min-width: 0;
   background: var(--bg);
   border: 1px solid var(--line);
-  padding: clamp(14px, 1.5vw, 19px) clamp(14px, 1.6vw, 20px);
+  padding: var(--exp-pad-y) clamp(14px, 1.6vw, 20px);
 }
-/* Connector stub from the card to the centre rail */
+/* Connector stub from the card to the centre rail. Sits on the centre of the
+   date line — the card's top padding plus half a 15px line — so it tracks the
+   padding as it shrinks on narrow screens. */
 .exp-card::before {
   content: '';
   position: absolute;
-  top: 25px;
+  top: calc(var(--exp-pad-y) + 7px);
   width: var(--rail-gap);
   height: 1px;
   background: var(--line);
@@ -586,22 +594,26 @@ section[id] { scroll-margin-top: 88px; }
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-top: 12px;
+  margin-top: var(--exp-block-gap);
 }
 .exp-card--left .exp-links { justify-content: flex-end; }
-/* A card can interleave per-project blocks, so give prose after a link
-   group room to breathe. */
-.exp-links + .exp-detail { margin-top: 14px; }
+/* A card can interleave per-project blocks, so anything following a link
+   group takes the same step. */
+.exp-links + .exp-detail,
+.exp-links + .exp-stack { margin-top: var(--exp-block-gap); }
 
 /* Project screenshot inside a timeline card: same treatment as the product
    shots, but tighter since the card is narrow. */
-.exp-shots { margin: 12px 0 0; }
+.exp-shots { margin: var(--exp-block-gap) 0 0; }
 
+/* Centre the dot on the date line: card padding + half a 15px line, less
+   half the dot. The active dot is 4px larger, so it pulls back by 2px to
+   keep the same centre. */
 .exp-node {
   grid-column: 2;
   display: flex;
   justify-content: center;
-  padding-top: 19px;
+  padding-top: calc(var(--exp-pad-y) + 2px);
 }
 .exp-dot {
   width: 11px;
@@ -615,6 +627,7 @@ section[id] { scroll-margin-top: 88px; }
 .exp-dot--active {
   width: 15px;
   height: 15px;
+  margin-top: -2px;
   background: var(--accent);
   border: 1px solid var(--accent);
   animation: dotPulse 2.6s ease-in-out infinite;
