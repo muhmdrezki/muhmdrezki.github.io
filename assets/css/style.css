@@ -581,6 +581,10 @@ section[id] { scroll-margin-top: 88px; }
   margin-top: 9px;
 }
 
+/* Project link inside a timeline card, in the same language as the product
+   links. */
+.exp-link { margin-top: 12px; }
+
 .exp-node {
   grid-column: 2;
   display: flex;
