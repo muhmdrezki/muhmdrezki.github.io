@@ -585,6 +585,10 @@ section[id] { scroll-margin-top: 88px; }
    links. */
 .exp-link { margin-top: 12px; }
 
+/* Project screenshot inside a timeline card: same treatment as the product
+   shots, but tighter since the card is narrow. */
+.exp-shots { margin: 12px 0 0; }
+
 .exp-node {
   grid-column: 2;
   display: flex;

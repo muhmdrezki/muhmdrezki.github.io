@@ -96,6 +96,9 @@
         ['assets/img/hourit-04.jpg', 'hourit screen'],
         ['assets/img/hourit-05.jpg', 'hourit screen'],
         ['assets/img/hourit-06.jpg', 'hourit screen']
+      ],
+      galliard: [
+        ['assets/img/galliard-waste-management.jpg', 'Waste Management System — case overview']
       ]
     };
 
@@ -121,7 +124,15 @@
       });
     });
 
+    // Prev/next and the dot strip are meaningless for a single-shot set.
+    const stepControls = box.querySelectorAll('[data-lb-prev], [data-lb-next]');
+    const focusable = () => buttons.filter(b => !b.hidden);
+
     function open() {
+      const many = shots.length > 1;
+      stepControls.forEach(b => { b.hidden = !many; });
+      dots.hidden = !many;
+
       box.classList.add('is-open');
       document.body.classList.add('is-locked');
       document.addEventListener('keydown', onKey);
@@ -168,8 +179,9 @@
 
       // Keep focus inside the dialog while it is open.
       if (e.key === 'Tab') {
-        const first = buttons[0];
-        const last = buttons[buttons.length - 1];
+        const reachable = focusable();
+        const first = reachable[0];
+        const last = reachable[reachable.length - 1];
         if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
         else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
       }
