@@ -580,9 +580,15 @@ section[id] { scroll-margin-top: 88px; }
   margin-top: 9px;
 }
 
-/* Project link inside a timeline card, in the same language as the product
-   links. */
-.exp-link { margin-top: 12px; }
+/* Project links inside a timeline card, in the same language as the product
+   links. Alignment follows the side the card sits on. */
+.exp-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+.exp-card--left .exp-links { justify-content: flex-end; }
 
 /* Project screenshot inside a timeline card: same treatment as the product
    shots, but tighter since the card is narrow. */
@@ -912,6 +918,7 @@ body.is-locked { overflow: hidden; }
   .exp-card::before { left: calc(-1 * var(--rail-gap)); right: auto; }
   .exp-card--left { text-align: left; }
   .exp-card--left .exp-meta { justify-content: flex-start; }
+  .exp-card--left .exp-links { justify-content: flex-start; }
   .exp-node { grid-column: 1; }
 }
 
