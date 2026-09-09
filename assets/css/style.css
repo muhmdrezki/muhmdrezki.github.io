@@ -518,11 +518,10 @@ section[id] { scroll-margin-top: 88px; }
 .exp-card--right::before { left: calc(-1 * var(--rail-gap)); }
 .exp-card--left { grid-column: 1; }
 .exp-card--left::before { right: calc(-1 * var(--rail-gap)); }
+/* Left-hand cards read towards the rail. Set on the card itself so that
+   inline-level children — the project link included — follow too. */
+.exp-card--left { text-align: right; }
 .exp-card--left .exp-meta { justify-content: flex-end; }
-.exp-card--left .exp-name,
-.exp-card--left .exp-role,
-.exp-card--left .exp-detail,
-.exp-card--left .exp-stack { text-align: right; }
 
 .exp-meta {
   display: flex;
@@ -911,11 +910,8 @@ body.is-locked { overflow: hidden; }
   .timeline-grid { grid-template-columns: 1px minmax(0, 1fr); column-gap: var(--rail-gap); }
   .exp-card--left, .exp-card--right { grid-column: 2; }
   .exp-card::before { left: calc(-1 * var(--rail-gap)); right: auto; }
+  .exp-card--left { text-align: left; }
   .exp-card--left .exp-meta { justify-content: flex-start; }
-  .exp-card--left .exp-name,
-  .exp-card--left .exp-role,
-  .exp-card--left .exp-detail,
-  .exp-card--left .exp-stack { text-align: left; }
   .exp-node { grid-column: 1; }
 }
 
