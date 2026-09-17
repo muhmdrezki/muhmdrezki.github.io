@@ -335,6 +335,10 @@ section[id] { scroll-margin-top: 88px; }
   border: 1px solid var(--line);
   transition: border-color 0.3s, box-shadow 0.5s var(--ease), transform 0.5s var(--ease);
 }
+/* A single product would otherwise stretch the full grid and blow the
+   screenshot up with it; hold it to the width it has in a two-up row.
+   Reverts by itself once a second card returns. */
+.product-card:only-child { max-width: 620px; }
 .product-card:hover {
   border-color: var(--accent);
   box-shadow: 0 10px 30px rgba(23, 24, 26, 0.09);

@@ -89,14 +89,6 @@
         ['assets/img/aturhr-app-approval.jpg', 'AturHR mobile approvals'],
         ['assets/img/aturhr-app-team.jpg', 'AturHR mobile team view']
       ],
-      hourit: [
-        ['assets/img/hourit-01.jpg', 'hourit landing page'],
-        ['assets/img/hourit-02.jpg', 'hourit screen'],
-        ['assets/img/hourit-03.jpg', 'hourit screen'],
-        ['assets/img/hourit-04.jpg', 'hourit screen'],
-        ['assets/img/hourit-05.jpg', 'hourit screen'],
-        ['assets/img/hourit-06.jpg', 'hourit screen']
-      ],
       galliard: [
         ['assets/img/galliard-waste-management.jpg', 'Waste Management System — case overview']
       ]
